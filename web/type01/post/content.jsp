@@ -23,20 +23,23 @@
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
 
 		Class.forName(driverName);
+		String sql1 = "update POST set COUNT = COUNT + 1 where IDX = " + idx;
 		String sql = "select * from POST where IDX = " + idx;
 
 		try (
 				Connection conn = DriverManager.getConnection(url, "iu", "iu1004");
+				PreparedStatement pstmt1 = conn.prepareStatement(sql1);
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();
 		) {
+			pstmt1.executeUpdate();
 			if (rs.next()) {
 				request.setAttribute("idx", rs.getInt("idx"));
 				request.setAttribute("title", rs.getString("title"));
 				request.setAttribute("writer", rs.getString("writer"));
 				request.setAttribute("reg_date", rs.getString("reg_date"));
 				request.setAttribute("count", rs.getInt("count"));
-				request.setAttribute("content", rs.getString("content"));
+				request.setAttribute("content", rs.getString("content").replaceAll("\n", "<br>"));
 			}
 		} catch (SQLException e) {
 			System.out.println("Oracle Database Work Something Problem.");
@@ -75,13 +78,44 @@
 				<th colspan="2">내용</th>
 				<td colspan="6">${content}</td>
 			</tr>
+			<tr>
+				<th colspan="2"></th>
+				<td colspan="6"></td>
+			</tr>
 		</table>
 		<a class="btn btn-primary" href="index.jsp" role="button">목록</a>
-		<a class="btn btn-danger" href="delete_Action.jsp?idx=${idx}" role="button">삭제</a>
+		<button type="button" class="btn btn-info" onclick="location.href='update_Form.jsp?idx=${idx}'">수정</button>
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">삭제</button>
 	</div>
 
 </div><!-- /.container -->
 
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">게시글 삭제</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				정말 삭제 하시겠습니까?
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" onclick="location.href='delete_Action.jsp?idx=${idx}'">삭제
+				</button>
+				<button type="button" class="btn btn-info" data-dismiss="modal">취소</button>
+			</div>
+
+		</div>
+	</div>
+</div><!-- /.Modal -->
 
 <%@include file="/view/partials/script.jsp" %>
 

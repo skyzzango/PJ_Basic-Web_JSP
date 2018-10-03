@@ -8,13 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	<a class="navbar-brand" href="#">Navbar</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-	        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+	<a class="navbar-brand" href="#">Logo</a>
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+	        data-target="#navb">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
-	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	<div class="collapse navbar-collapse" id="navb">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
 				<a class="nav-link" href="${pageContext.request.contextPath}/">Home <span
@@ -37,25 +37,24 @@
 			</li>
 		</ul>
 
-		<div style="margin-right: 2rem">
+		<div class="btn-inline my-2 my-lg-0">
 			<% if (session.getAttribute("userId") == null) { %>
-			<button class="btn btn-primary" onclick="document.getElementById('id01').style.display='block'"
-			        style="width:auto;">Sign In
+			<button class="btn btn-primary mr-sm-2" onclick="document.getElementById('id01').style.display='block'">
+				Sign In
 			</button>
 			<% } else { %>
-			<button class="btn btn-outline-primary" onclick="location.href='/user/logoutProc.jsp'" style="width:auto;">
+			<button class="btn btn-outline-primary mr-sm-2" onclick="location.href='/user/logoutProc.jsp'">
 				Sign Out
 			</button>
 			<% } %>
-			<button class="btn btn-primary" onclick="document.getElementById('id02').style.display='block'"
-			        style="width:auto;">Sign Up
+			<button class="btn btn-primary mr-sm-3" onclick="document.getElementById('id02').style.display='block'">
+				Sign Up
 			</button>
 		</div>
 
-		<form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/"
-		      method="get">
-			<input class="form-control" name="search" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success" type="submit" style="margin-left: 1rem">Search</button>
+		<form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/" method="get">
+			<input class="form-control mr-sm-2" name="search" type="search" placeholder="Search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		</form>
 
 	</div>
