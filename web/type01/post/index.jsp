@@ -1,7 +1,4 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.Statement" %><%--
+<%@ page import="java.sql.*" %><%--
   Created by IntelliJ IDEA.
   User: skyzz
   Date: 2018-10-03
@@ -61,15 +58,19 @@
 			%>
 			</tbody>
 		</table>
-		<a class="btn btn-primary" href="#" role="button">글쓰기</a>
+		<a class="btn btn-primary" href="write_Form.jsp" role="button">글쓰기</a>
 	</div>
 
 </div><!-- /.container -->
 
 <%
+		} catch (SQLException e) {
+			System.out.println("Oracle Database Work Something Problem.");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	} catch (Exception e) {
-		System.out.println("Oracle Database Connection Something Problem. <hr>");
+		System.out.println("Oracle Database Driver Something Problem.");
 		System.out.println(e.getMessage());
 		e.printStackTrace();
 	}
