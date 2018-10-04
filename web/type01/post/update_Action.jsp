@@ -23,10 +23,10 @@
 	String idx = request.getParameter("idx");
 	String title = request.getParameter("title")
 			.replaceAll("&", "&amp;").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
-			.replaceAll("\"", "&quot;").replaceAll("\'", "&#x27;").replaceAll("\\\\", "#x2F;");
+			.replaceAll("\"", "&quot;").replaceAll("\'", "&#x27;").replaceAll("\\\\", "&#x2F;");
 	String content = request.getParameter("content")
 			.replaceAll("&", "&amp;").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
-			.replaceAll("\"", "&quot;").replaceAll("\'", "&#x27;").replaceAll("\\\\", "#x2F;");
+			.replaceAll("\"", "&quot;").replaceAll("\'", "&#x27;").replaceAll("\\\\", "&#x2F;");
 
 	try {
 		String driverName = "oracle.jdbc.driver.OracleDriver";
