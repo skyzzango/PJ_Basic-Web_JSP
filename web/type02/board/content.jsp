@@ -61,10 +61,12 @@
 				<td colspan="6"></td>
 			</tr>
 		</table>
-		<a class="btn btn-primary" href="index.jsp" role="button">목록</a>
-		<button type="button" class="btn btn-info" onclick="location.href='update_Form.jsp?idx=${board.idx}'">수정
-		</button>
-		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">삭제</button>
+		<div style="text-align: center;margin: auto">
+			<a class="btn btn-primary" href="index.jsp" role="button">목록</a>
+			<button type="button" class="btn btn-info" onclick="location.href='update_Form.jsp?idx=${board.idx}'">수정
+			</button>
+			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">삭제</button>
+		</div>
 	</div>
 
 </div><!-- /.container -->

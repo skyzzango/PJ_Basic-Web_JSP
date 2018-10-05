@@ -24,6 +24,7 @@ public class BoardDao extends CommonDao {
 			if (rs.next()) {
 				cnt = rs.getInt(1);
 			}
+			closeConnection();
 		} catch (Exception e) {
 			System.err.println("PostDao function(getBoardCnt) Something Problem!!");
 			System.out.println(e.getMessage());
@@ -44,14 +45,7 @@ public class BoardDao extends CommonDao {
 		ArrayList<BoardDto> boardList = new ArrayList<>();
 		try (ResultSet rs = openConnection().executeQuery(sql)) {
 			while (rs.next()) {
-				BoardDto board = new BoardDto();
-				board.setIdx(rs.getInt("idx"));
-				board.setTitle(rs.getString("title"));
-				board.setWriter(rs.getString("writer"));
-				board.setReg_date(rs.getString("reg_date"));
-				board.setCount(rs.getInt("count"));
-				board.setContent(rs.getString("content"));
-				boardList.add(board);
+				boardList.add(convertDBtoClass(rs));
 			}
 			closeConnection();
 		} catch (SQLException e) {
@@ -60,6 +54,24 @@ public class BoardDao extends CommonDao {
 			e.printStackTrace();
 		}
 		return boardList;
+	}
+
+	public List<BoardDto> getSearchList(String search) {
+		List<BoardDto> searchList = new ArrayList<>();
+		String str = "%" + search + "%";
+		String sql = "select * from POST where TITLE like '" + str + "' or WRITER like '" + str +
+				"' or CONTENT like '" + str + "' ORDER BY IDX DESC";
+
+		try (ResultSet rs = openConnection().executeQuery(sql)) {
+			while (rs.next()) {
+				searchList.add(convertDBtoClass(rs));
+			}
+		} catch (Exception e) {
+			System.err.println("PostDao function(getSearchList) Something Problem!!");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return searchList;
 	}
 
 	public int insertBoard(String title, String writer, String content) {
@@ -142,6 +154,32 @@ public class BoardDao extends CommonDao {
 			pstmt.setInt(1, (int) status);
 		}
 		return pstmt;
+	}
+
+	private BoardDto convertDBtoClass(ResultSet rs) throws SQLException {
+		BoardDto board = new BoardDto();
+		board.setIdx(rs.getInt("idx"));
+		board.setTitle(rs.getString("title"));
+		board.setWriter(rs.getString("writer"));
+
+		// 시간을 오전 오후로 변환하여 표시
+		int date = Integer.parseInt(rs.getString("reg_date").substring(11, 13));
+		String dateType = "오전";
+		if (Integer.parseInt(rs.getString("reg_date").substring(11, 13)) >= 12) {
+			dateType = "오후";
+			date -= 12;
+		}
+
+		board.setReg_date(rs.getString("reg_date").substring(0, 11) + "<br>" + dateType + " " + date + "시 " +
+				rs.getString("reg_date").substring(14, 16) + "분");
+		board.setCount(rs.getInt("count"));
+		board.setContent(rs.getString("content"));
+
+//		board.setPicture(rs.getString("picture"));
+//		board.setFileName(rs.getString("fileName"));
+//		board.setFileRealName(rs.getString("fileRealName"));
+
+		return board;
 	}
 
 	private static class LazyHolder {

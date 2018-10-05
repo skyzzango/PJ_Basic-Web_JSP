@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: skyzz
@@ -30,8 +31,8 @@
 				<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
 				   aria-haspopup="true" aria-expanded="false">Dropdown</a>
 				<div class="dropdown-menu" aria-labelledby="dropdown01">
-					<a class="dropdown-item" href="${pageContext.request.contextPath}/type01/post/">기본게시판</a>
-					<a class="dropdown-item" href="#">파일 게시판</a>
+					<a class="dropdown-item" href="<c:url value="/type01/post/"/>">Type1 - 게시판</a>
+					<a class="dropdown-item" href="<c:url value="/type02/board/"/>">Type2 - 게시판</a>
 					<a class="dropdown-item" href="#">Something</a>
 				</div>
 			</li>
@@ -52,8 +53,8 @@
 			</button>
 		</div>
 
-		<form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/" method="get">
-			<input class="form-control mr-sm-2" name="search" type="search" placeholder="Search">
+		<form class="form-inline my-2 my-lg-0" action="<c:url value="/type02/board/search.jsp"/>" method="get">
+			<input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" required>
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		</form>
 
