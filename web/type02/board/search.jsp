@@ -14,27 +14,6 @@
 	<%@include file="/view/partials/head.jsp" %>
 	<title>게시판 - 게시글 검색 리스트</title>
 
-	<style>
-		#myBtn {
-			display: none;
-			position: fixed;
-			bottom: 20px;
-			right: 30px;
-			z-index: 99;
-			font-size: 18px;
-			border: none;
-			outline: none;
-			background-color: red;
-			color: white;
-			cursor: pointer;
-			padding: 15px;
-			border-radius: 4px;
-		}
-
-		#myBtn:hover {
-			background-color: #555;
-		}
-	</style>
 </head>
 
 <body>
@@ -74,7 +53,7 @@
 			총 ${searchList.size()}개 검색 완료
 		</div>
 
-		<div style="text-align: center;margin: auto">
+		<div class="row" style="text-align: center;margin: auto">
 			<table class="table table-hover">
 				<thead>
 				<tr>

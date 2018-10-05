@@ -20,7 +20,6 @@
 	String idx = request.getParameter("idx");
 	BoardDto board = BoardDao.getInstance().getBoard(idx);
 	if (board.getIdx() != 0) {
-		board.setTitle(board.getTitle().replace("\n", "<br>"));
 		board.setContent(board.getContent().replace("\n", "<br>"));
 		request.setAttribute("board", board);
 	} else {
@@ -51,6 +50,12 @@
 			<tr>
 				<th colspan="2">제목</th>
 				<td colspan="6">${board.title}</td>
+			</tr>
+			<tr>
+				<th colspan="2">링크</th>
+				<td colspan="6">
+					<a href="${board.link}">${board.link}</a>
+				</td>
 			</tr>
 			<tr style="height: 10rem">
 				<th colspan="2">내용</th>

@@ -138,6 +138,7 @@ public class BoardDao extends CommonDao {
 				board.setReg_date(rs.getString("reg_date"));
 				board.setCount(rs.getInt("count"));
 				board.setContent(rs.getString("content"));
+				board.setLink(rs.getString("link"));
 			}
 		} catch (SQLException e) {
 			System.err.println("BoardDao function(getBoard) Something Problem!!");

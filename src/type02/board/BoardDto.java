@@ -9,6 +9,7 @@ public class BoardDto {
 	private String content;
 	private int price;
 	private String cover;
+	private String link;
 
 	public int getIdx() {
 		return idx;
@@ -74,6 +75,14 @@ public class BoardDto {
 		this.cover = cover;
 	}
 
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardDto{" +
@@ -85,6 +94,7 @@ public class BoardDto {
 				", content='" + content + '\'' +
 				", price=" + price +
 				", cover='" + cover + '\'' +
-				'}';
+				", link='" + link + '\'' +
+				"}\n";
 	}
 }

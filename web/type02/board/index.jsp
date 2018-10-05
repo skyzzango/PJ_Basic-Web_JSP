@@ -13,27 +13,6 @@
 	<%@include file="/view/partials/head.jsp" %>
 	<title>게시판 - 게시글 리스트</title>
 
-	<style>
-		#myBtn {
-			display: none;
-			position: fixed;
-			bottom: 20px;
-			right: 30px;
-			z-index: 99;
-			font-size: 18px;
-			border: none;
-			outline: none;
-			background-color: red;
-			color: white;
-			cursor: pointer;
-			padding: 15px;
-			border-radius: 4px;
-		}
-
-		#myBtn:hover {
-			background-color: #555;
-		}
-	</style>
 </head>
 
 <body>
@@ -68,12 +47,7 @@
 </c:choose>
 <fmt:parseNumber var="tmpPage" value="${(pageNum - 1) / blockSize}" integerOnly="true"/>
 <fmt:parseNumber var="startPage" value="${tmpPage * blockSize + 1}" integerOnly="true"/>
-<fmt:parseNumber var="endPage" value="${startPage + blockSize}" integerOnly="true"/>
-
-<c:out value="pageNum: ${pageNum}"/>
-<c:out value="startPage: ${startPage}"/>
-<c:out value="endPage: ${endPage}"/>
-
+<fmt:parseNumber var="endPage" value="${startPage + blockSize - 1}" integerOnly="true"/>
 <c:if test="${endPage > totalPage}">
 	<fmt:parseNumber var="endPage" value="${totalPage}" integerOnly="true"/>
 </c:if>
@@ -84,33 +58,36 @@
 	<div class="starter-template">
 		<h1>게시글 리스트</h1>
 
+		<nav class="nav nav-inline" style="padding: 1rem">
+			<div style="width: 50%;">
+				<c:choose>
+					<c:when test="${pageNum > 1}">
+						<a href="?pageNum=${pageNum - 1}" class="btn btn-success btn-arraw-left">이전</a>
+					</c:when>
+					<c:otherwise>
+						<a href="?pageNum=${pageNum - 1}" class="btn btn-success btn-arraw-left disabled">이전</a>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${pageNum < totalPage}">
+						<a href="?pageNum=${pageNum + 1}" class="btn btn-success btn-arraw-left">다음</a>
+					</c:when>
+					<c:otherwise>
+						<a href="?pageNum=${pageNum + 1}" class="btn btn-success btn-arraw-left disabled">다음</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div style="width: 50%; text-align: right">
+				<a class="btn btn-primary btn-arraw-right" style="width: 5rem;" href="write_Form.jsp"
+				   role="button">글쓰기</a>
+			</div>
+		</nav>
+
 		<div style="text-align: right;margin: auto">
 			총 ${totalCount}개 글 / 현재 ${pageNum} 페이지 / 총 ${totalPage} 페이지
 		</div>
 
-		<div style="text-align: center;margin: auto">
-			<c:choose>
-				<c:when test="${pageNum > 1}">
-					<a href="?pageNum=${pageNum - 1}" class="btn btn-success btn-arraw-left">이전</a>
-				</c:when>
-				<c:otherwise>
-					<a href="?pageNum=${pageNum - 1}" class="btn btn-success btn-arraw-left disabled">이전</a>
-				</c:otherwise>
-			</c:choose>
-
-			<a class="btn btn-primary btn-arraw-right" href="write_Form.jsp" role="button">글쓰기</a>
-
-			<c:choose>
-				<c:when test="${pageNum < totalPage}">
-					<a href="?pageNum=${pageNum + 1}" class="btn btn-success btn-arraw-left">다음</a>
-				</c:when>
-				<c:otherwise>
-					<a href="?pageNum=${pageNum + 1}" class="btn btn-success btn-arraw-left disabled">다음</a>
-				</c:otherwise>
-			</c:choose>
-		</div>
-		<br>
-		<div style="text-align: center;margin: auto">
+		<div class="row" style="text-align: center;margin: auto">
 			<table class="table table-hover">
 				<thead>
 				<tr>
@@ -121,6 +98,7 @@
 					<th>조회수</th>
 				</tr>
 				</thead>
+
 				<tbody>
 				<c:forEach items="${boardList}" var="board">
 					<tr>
