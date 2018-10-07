@@ -8,7 +8,7 @@ body {
 	padding: 1.5rem 1.5rem;
 }
 
-/*TOP Button*/
+/* TOP Button */
 #myBtn {
 	display: none;
 	position: fixed;
@@ -27,4 +27,15 @@ body {
 
 #myBtn:hover {
 	background-color: #555;
+}
+
+/* login Form */
+#window-form-body .window-form {
+	margin-top: 25%;
+	margin-bottom: 15px;
+	background-color: #fff;
+	border: 1px solid #eee;
+	border-radius: 4px;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+	padding: 30px;
 }

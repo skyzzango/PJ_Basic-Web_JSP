@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	<a class="navbar-brand" href="#">Logo</a>
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/">Logo</a>
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
 	        data-target="#navb">
 		<span class="navbar-toggler-icon"></span>
@@ -39,18 +39,24 @@
 		</ul>
 
 		<div class="btn-inline my-2 my-lg-0">
-			<% if (session.getAttribute("userId") == null) { %>
-			<button class="btn btn-primary mr-sm-2" onclick="document.getElementById('id01').style.display='block'">
-				Sign In
-			</button>
-			<% } else { %>
-			<button class="btn btn-outline-primary mr-sm-2" onclick="location.href='/user/logoutProc.jsp'">
-				Sign Out
-			</button>
-			<% } %>
-			<button class="btn btn-primary mr-sm-3" onclick="document.getElementById('id02').style.display='block'">
-				Sign Up
-			</button>
+			<c:choose>
+				<c:when test="${empty sessionScope.member}">
+					<button class="btn btn-outline-primary mr-sm-2" onclick="location.href='/type02/member/login.jsp'">
+						로그인
+					</button>
+					<button class="btn btn-outline-primary mr-sm-3" onclick="location.href='/type02/member/signup.jsp'">
+						회원가입
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button class="btn btn-primary mr-sm-2" onclick="location.href='/type02/member/logout_Action.jsp'">
+						로그아웃
+					</button>
+					<button class="btn btn-primary mr-sm-3" onclick="location.href='/type02/member/update_Form.jsp'">
+						정보수정
+					</button>
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 		<form class="form-inline my-2 my-lg-0" action="<c:url value="/type02/board/search.jsp"/>" method="get">
