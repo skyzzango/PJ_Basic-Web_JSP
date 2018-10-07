@@ -15,7 +15,7 @@
 <body>
 
 <%@include file="/view/partials/nav.jsp" %>
-
+<c:import url="/view/partials/loginCheck.jsp"/>
 
 <div class="container">
 
@@ -23,12 +23,13 @@
 		<h1>게시글 작성</h1><br>
 		<form action="insert_Action.jsp" method="post">
 			<div class="form-group">
-				<label for="title">제목</label>
-				<input type="text" class="form-control" name="title" id="title" placeholder="" required>
+				<label for="writer">작성자</label>
+				<input type="email" class="form-control" name="writer" id="writer" value="${sessionScope.member.email}"
+				       readonly>
 			</div>
 			<div class="form-group">
-				<label for="writer">작성자</label>
-				<input type="email" class="form-control" name="writer" id="writer" placeholder="" required>
+				<label for="title">제목</label>
+				<input type="text" class="form-control" name="title" id="title" placeholder="" required>
 			</div>
 			<div class="form-group">
 				<label for="content">내용</label>

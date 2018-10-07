@@ -1,5 +1,6 @@
 <%@ page import="type02.board.BoardDao" %>
-<%@ page import="type02.board.BoardDto" %><%--
+<%@ page import="type02.board.BoardDto" %>
+<%@ page import="type02.member.MemberDto" %><%--
   Created by IntelliJ IDEA.
   User: skyzz
   Date: 2018-10-04
@@ -20,10 +21,16 @@
 	String idx = request.getParameter("idx");
 	BoardDto board = BoardDao.getInstance().getBoard(idx);
 	if (board.getIdx() == 0) {
-		out.print("<script>");
+		out.println("<script>");
 		out.println("alert('게시물이 존재 하지 않습니다.')");
 		out.println("location.href='index.jsp'");
-		out.print("</script>");
+		out.println("</script>");
+	}
+	if (!((MemberDto) session.getAttribute("member")).getEmail().equals(board.getWriter())) {
+		out.println("<script>");
+		out.println("alert('정상적인 접근이 아닙니다.')");
+		out.println("location.href='index.jsp'");
+		out.println("</script>");
 	}
 	request.setAttribute("board", board);
 %>
@@ -69,8 +76,7 @@
 			<button type="button" class="btn btn-primary" onclick="location.href='content.jsp?idx=${board.idx}'">뒤로
 			</button>
 			<button type="submit" class="btn btn-info">수정</button>
-			<button type="button" class="btn btn-danger" onclick="location.href='delete_Action.jsp?idx=${board.idx}'">삭제
-			</button>
+			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">삭제</button>
 		</form>
 
 	</div>
@@ -78,6 +84,33 @@
 
 </div><!-- /.container -->
 
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">게시글 삭제</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				정말 삭제 하시겠습니까?
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger"
+				        onclick="location.href='delete_Action.jsp?idx=${board.idx}'">삭제
+				</button>
+				<button type="button" class="btn btn-info" data-dismiss="modal">취소</button>
+			</div>
+
+		</div>
+	</div>
+</div><!-- /.Modal -->
 
 <%@include file="/view/partials/script.jsp" %>
 
