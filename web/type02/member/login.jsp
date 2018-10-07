@@ -64,8 +64,10 @@
 				</div>
 				<form action="#" method="post">
 					<input type="hidden" name="next" value="/login/">
-					<button class="btn-google-signup btn-google-signup-login" type="submit"
-					        style="margin: 0.5rem;border: none;background: #FFF;display: block">
+					<!-- Button trigger modal -->
+					<button class="btn-google-signup btn-google-signup-login" type="button"
+					        style="margin: 0.5rem;border: none;background: #FFF;display: block"
+					        data-toggle="modal" data-target="#modalCenter">
 						<img src="<c:url value="/view/images/google-signin-button-dark.png"/>"
 						     style="max-width: 80%;vertical-align: middle">
 					</button>
@@ -83,7 +85,9 @@
 		<div class="row">
 			<div style="text-align: center;margin: auto">
 				비밀번호를 잊어버리셨나요?
-				<a href="reset.jsp">비밀번호 찾기</a>
+				<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalCenter">
+					비밀번호 찾기
+				</button>
 			</div>
 		</div>
 
@@ -91,6 +95,26 @@
 
 </div><!-- /.container -->
 
+<!-- Modal -->
+<div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+     aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalCenterTitle">미구현</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				미구현 기능 입니다.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div><!-- /.Modal -->
 
 <%@include file="/view/partials/script.jsp" %>
 

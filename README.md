@@ -15,14 +15,15 @@
 * #### Model1 사용
     * DAO(Data access object) 적용
     * DTO(Data Transfer Object) 적용
-    * 게시판 구현
+    * 게시판 구현 (완료)
         * 목록 화면
         * 등록
         * 수정
         * 삭제
         * 페이징
         * 검색
-    * 로그인 구현
+        * XSS(cross-site scripting) 차단
+    * 로그인 구현 (완료)
         * 로그인
         * 로그아웃
         * 가입
