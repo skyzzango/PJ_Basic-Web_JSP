@@ -9,10 +9,8 @@
 
 <%
 	PrintWriter script = response.getWriter();
-	if (session.getAttribute("userId") == null) {
+	if (session.getAttribute("member") == null) {
 		script.println("<script>alert('로그인 후 사용 가능합니다.')</script>");
 		script.println("<script>history.back()</script>");
 	}
-
-	String userId = (String) session.getAttribute("userId");
 %>
