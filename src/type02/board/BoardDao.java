@@ -20,11 +20,10 @@ public class BoardDao extends CommonDao {
 	public int getBoardCnt() {
 		int cnt = 0;
 		String sql = "select count(*) as totalCount from POST";
-		try (ResultSet rs = openConnection().executeQuery(sql)) {
+		try (ResultSet rs = getConnection("oracle").prepareStatement(sql).executeQuery()) {
 			if (rs.next()) {
 				cnt = rs.getInt(1);
 			}
-			closeConnection();
 		} catch (Exception e) {
 			System.err.println("PostDao function(getBoardCnt) Something Problem!!");
 			System.out.println(e.getMessage());
@@ -43,11 +42,10 @@ public class BoardDao extends CommonDao {
 				"where B.RNUM >= " + (num - 9);
 
 		ArrayList<BoardDto> boardList = new ArrayList<>();
-		try (ResultSet rs = openConnection().executeQuery(sql)) {
+		try (ResultSet rs = getConnection("oracle").prepareStatement(sql).executeQuery()) {
 			while (rs.next()) {
 				boardList.add(convertDBtoClass(rs));
 			}
-			closeConnection();
 		} catch (SQLException e) {
 			System.err.println("PostDao function(getBoardList) Something Problem!!");
 			System.out.println(e.getMessage());
@@ -62,7 +60,7 @@ public class BoardDao extends CommonDao {
 		String sql = "select * from POST where TITLE like '" + str + "' or WRITER like '" + str +
 				"' or CONTENT like '" + str + "' ORDER BY IDX DESC";
 
-		try (ResultSet rs = openConnection().executeQuery(sql)) {
+		try (ResultSet rs = getConnection("oracle").prepareStatement(sql).executeQuery()) {
 			while (rs.next()) {
 				searchList.add(convertDBtoClass(rs));
 			}

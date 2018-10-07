@@ -1,5 +1,7 @@
 package type02.util;
 
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,6 +16,27 @@ public class CommonDao {
 	private Connection conn = null;
 	private Statement stmt = null;
 
+	public Connection getConnection(String dbName) {
+		try {
+			if (dbName.equals("mysql")) {
+				DataSource dataSource = (DataSource) new InitialContext()
+						.lookup("java:comp/env/jdbc/mySql");
+				conn = dataSource.getConnection();
+			} else if (dbName.equals("oracle")) {
+				DataSource dataSource = (DataSource) new InitialContext()
+						.lookup("java:comp/env/jdbc/myOracle");
+				conn = dataSource.getConnection();
+			}
+//			Class.forName(driverName);
+//			conn = DriverManager.getConnection(url, db_id, db_pw);
+		} catch (Exception e) {
+			System.err.println("Oracle Database Connection Something Problem!!");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return conn;
+	}
+
 	public Statement openConnection() {
 		try {
 			Class.forName(driverName);
@@ -25,27 +48,6 @@ public class CommonDao {
 			e.printStackTrace();
 		}
 		return stmt;
-	}
-
-	public Connection getConnection(String dbName) {
-		try {
-//			if (dbName.equals("mysql")) {
-//				DataSource dataSource = (DataSource) new InitialContext()
-//						.lookup("java:comp/env/jdbc/mySql");
-//				conn = dataSource.getConnection();
-//			} else if (dbName.equals("oracle")) {
-//				DataSource dataSource = (DataSource) new InitialContext()
-//						.lookup("java:comp/env/jdbc/myOracle");
-//				conn = dataSource.getConnection();
-//			}
-			Class.forName(driverName);
-			conn = DriverManager.getConnection(url, db_id, db_pw);
-		} catch (Exception e) {
-			System.err.println("Oracle Database Connection Something Problem!!");
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		return conn;
 	}
 
 	public void closeConnection() {
