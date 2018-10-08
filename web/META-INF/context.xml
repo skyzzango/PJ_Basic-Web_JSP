@@ -22,5 +22,20 @@
 	          removeAbandonedTimeout="60"
 	          removeAbandoned="true"
 	/>
-	<!-- <ResourceLink global="db" name="db" type="javax.sql.DataSource" /> -->
+
+	<Resource name="jdbc/mySql"
+	          auth="Container"
+	          type="javax.sql.DataSource"
+	          username="iu"
+	          password="iu1004"
+	          driverClassName="com.mysql.jdbc.Driver"
+	          url="jdbc:mysql://localhost:3306/iu"
+
+	          maxTotal="100"
+	          maxIdle="30"
+	          maxWaitMillis="10000"
+	          initialSize="10"
+	          removeAbandonedTimeout="60"
+	          removeAbandoned="true"
+	/>
 </Context>
